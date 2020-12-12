@@ -44,6 +44,8 @@
     "@typescript-eslint/comma-spacing": "off",
     "@typescript-eslint/return-await": "off",
     "@typescript-eslint/restrict-template-expressions": "off",
+    "@typescript-eslint/no-namespace": "off",
+    "no-use-before-define": "off",
     "consistent-return": "off",
     "import/no-extraneous-dependencies": [
       "error", 
