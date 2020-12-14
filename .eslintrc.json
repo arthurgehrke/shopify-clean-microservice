@@ -10,12 +10,8 @@
     "prettier/@typescript-eslint",
     "plugin:prettier/recommended"
   ],
-  "globals": {
-    "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
-  },
   "parserOptions": {
-    "project": "./tsconfig.json"
+    "project": "./tsconfig.eslint.json"
   },
   "plugins": [
     "@typescript-eslint",
@@ -45,8 +41,10 @@
     "@typescript-eslint/return-await": "off",
     "@typescript-eslint/restrict-template-expressions": "off",
     "@typescript-eslint/no-namespace": "off",
+    "@typescript-eslint/no-explicit-any": "off",
     "no-use-before-define": "off",
     "consistent-return": "off",
+    "no-shadow": "off",
     "import/no-extraneous-dependencies": [
       "error", 
         {
