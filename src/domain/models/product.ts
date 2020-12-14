@@ -3,6 +3,15 @@ export type ProductModel = {
   name: string;
   type?: string;
   price: string;
-  showcaseImage?: string;
-  galleryImages?: [string];
+  showcaseImage?: ProductShowcaseImageModel;
+  galleryImages?: ProductGalleryImages;
+};
+
+export type ProductShowcaseImageModel = {
+  id: string;
+  url: string;
+};
+
+export type ProductGalleryImages = {
+  items: Array<ProductShowcaseImageModel>;
 };
