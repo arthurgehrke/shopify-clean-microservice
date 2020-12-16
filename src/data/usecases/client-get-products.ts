@@ -1,6 +1,7 @@
-import { HttpClient } from '@/data/protocols/http/http-client';
+import { HttpClient, HttpStatusCode } from '@/data/protocols/http/http-client';
 import { GetProducts } from '@/domain/usecases/get-products';
 import { ProductModel } from '@/domain/models/product';
+import { UnexpectedError } from '@/presentation/errors/unexpected-error';
 
 export class ClientGetProducts implements GetProducts {
   constructor(
@@ -15,7 +16,15 @@ export class ClientGetProducts implements GetProducts {
     });
 
     const products = httpResponse.body || [];
+    switch (httpResponse.statusCode) {
+      case HttpStatusCode.noContent:
+        return [];
 
-    return new Promise(resolve => resolve(products));
+      case HttpStatusCode.ok:
+        return products;
+
+      default:
+        throw new UnexpectedError();
+    }
   }
 }
