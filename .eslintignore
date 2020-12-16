@@ -3,3 +3,4 @@ dist
 coverage
 .vscode
 jest.config.js
+prettier.config.js
