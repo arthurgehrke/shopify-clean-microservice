@@ -6,6 +6,7 @@ import {
   HttpStatusCode
 } from '@/data/protocols/http/http-client';
 import { ProductModel } from '@/domain/models/product';
+import { mockClientGetProducts } from '@/data/tests/mocks/client-get-products';
 import faker from 'faker';
 
 class HttpClientSpy<R = any> implements HttpClient<R> {
@@ -53,5 +54,37 @@ describe('ClientGetProducts', () => {
 
     expect(httpClientSpy.url).toBe(url);
     expect(httpClientSpy.method).toBe('GET');
+  });
+
+  test('Should return an empty array if HttpClient returns 204', async () => {
+    const url = faker.internet.url();
+    const { sut, httpClientSpy } = makeSut(url);
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.noContent
+    };
+
+    const products = await sut.get();
+
+    expect(products).toEqual([]);
+  });
+
+  test('Should return at least one ProductModel if HttpClient returns 200', async () => {
+    const url = faker.internet.url();
+    const { sut, httpClientSpy } = makeSut(url);
+    const httpResult = mockClientGetProducts();
+    httpClientSpy.response = {
+      statusCode: HttpStatusCode.ok,
+      body: httpResult
+    };
+
+    const products = await sut.get();
+
+    expect(products.length).toBeGreaterThanOrEqual(1);
+
+    expect(products[0]).toHaveProperty('id');
+    expect(products[0]).toHaveProperty('name');
+    expect(products[0]).toHaveProperty('price');
+    expect(products[0]).toHaveProperty('showcaseImage');
+    expect(products[0]).toHaveProperty('galleryImages');
   });
 });
