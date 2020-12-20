@@ -1,8 +1,17 @@
-import { HttpResponse } from '@/presentation/protocols/http';
-import { noContent } from '@/presentation/helpers/http/http-helper';
+import { HttpResponse, Controller } from '@/presentation/protocols';
+import { noContent, ok, serverError } from '@/presentation/helpers/http/http-helper';
+import { GetProducts } from '@/domain/usecases/get-products';
 
-export class GetProductsController {
-  handle(): Promise<HttpResponse> {
-    return new Promise(resolve => resolve(noContent()));
+export class GetProductsController implements Controller {
+  constructor(private readonly getProducts: GetProducts) {}
+
+  async handle(): Promise<HttpResponse> {
+    try {
+      const products = await this.getProducts.get();
+
+      return products.length ? ok(products) : noContent();
+    } catch (error) {
+      return serverError(error);
+    }
   }
 }
