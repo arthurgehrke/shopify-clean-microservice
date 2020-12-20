@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { noContent } from '@/presentation/helpers/http/http-helper';
+import { noContent, ok } from '@/presentation/helpers/http/http-helper';
 import { GetProductsController } from '@/presentation/controllers/products/get-products-controller';
 import { mockGetProducts } from '@/presentation/tests/mocks/get-products';
 import { GetProducts } from '@/domain/usecases/get-products';
@@ -36,5 +36,12 @@ describe('GetProducts Controller', () => {
 
     expect(httpResponse).toEqual(noContent());
     expect(httpResponse.statusCode).toBe(204);
+  });
+
+  test('Should return 200 if at least one product is returned', async () => {
+    const { sut } = makeSut();
+    const httpResponse = await sut.handle();
+
+    expect(httpResponse).toEqual(ok(httpResponse.body));
   });
 });
