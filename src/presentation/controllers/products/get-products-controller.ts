@@ -9,7 +9,7 @@ export class GetProductsController implements Controller {
     try {
       const products = await this.getProducts.get();
 
-      return products.length ? ok(products) : noContent();
+      return products.length ? ok({ products }) : noContent();
     } catch (error) {
       return serverError(error);
     }
