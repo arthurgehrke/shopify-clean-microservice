@@ -1,6 +1,7 @@
 module.exports = {
   clearMocks: true,
-  coverageProvider: 'v8',
+  coverageProvider: 'babel',
+  coverageDirectory: 'coverage',
   roots: ['<rootDir>/src'],
   testEnvironment: 'node',
   transform: {
@@ -8,7 +9,6 @@ module.exports = {
   },
   collectCoverageFrom: ['<rootDir>/src/**/*.ts', '!<rootDir>/src/main/**'],
   moduleNameMapper: {
-    '@/tests/(.*)': '<rootDir>/tests/$1',
     '@/(.*)': '<rootDir>/src/$1'
   }
 };

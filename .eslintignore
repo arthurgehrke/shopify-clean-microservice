@@ -4,3 +4,5 @@ coverage
 .vscode
 jest.config.js
 prettier.config.js
+jest-unit-config.js
+jest-integration-config.js
